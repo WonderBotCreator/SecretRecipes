@@ -40,6 +40,8 @@ export const authOptions = {
                     })
                 }
 
+                
+
                 if (!passwordCorrect) {
                     return NextResponse.json({
                         success: false, message: 'User or password is invalid.',
@@ -80,7 +82,7 @@ export const authOptions = {
                     return token
                 },
                 async session({ session, token, user }) {
-                    const userObject = await User.findOne({ username: session.user.name })
+                    
                     session.user.id = userObject.id
                     session.user.token = token
                     return session
