@@ -5,7 +5,7 @@ import Recipe from "@models/recipe"
 export async function GET(req){
     const {searchParams} = new URL(req.url)
     const query = searchParams.get('query')
-    console.log(query)
+    //console.log(query)
 
     const recipes = await Recipe.find({})
 

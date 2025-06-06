@@ -2,43 +2,56 @@
 
 import Link from "@node_modules/next/link"
 import { useEffect, useState } from "react"
+import FrontCardList from "./FrontCardList"
 
-const AllRecipe = ({recipeType}) => {
+const AllRecipe = () => {
     const [recipes, setRecipes] = useState([])
     const [loading, setLoading] = useState(true)
+
+    const [mainDish, setMainDish] = useState([])
+    const [drink, setDrink] = useState([])
+    const [dessert, setDessert] = useState([])
 
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
 
-                if(recipeType === 'All')
-                {
-                    const response = await fetch('/api/recipe')
-                    const data = await response.json()
-                    setRecipes(data)
-                    setLoading(false)
-                }
-                else if(recipeType === 'Main Dish')
-                {
-                    const response = await fetch(`/api/recipe/search/${'main dish'}`)
-                    const data = await response.json()
-                    setRecipes(data)
-                    setLoading(false)
-                }
-                else if(recipeType === 'Drink')
-                {
-                    const response = await fetch(`/api/recipe/search/${'drink'}`)
-                    const data = await response.json()
-                    setRecipes(data)
-                    setLoading(false)
-                }
-                else if(recipeType === 'Dessert')
-                {
-                    const response = await fetch(`/api/recipe/search/${'dessert'}`)
-                    const data = await response.json()
-                    setRecipes(data)
-                    setLoading(false)
-                }
+                const response = await fetch('/api/recipe/front')
+                const data = await response.json()
+                setRecipes(data.recent)
+                setMainDish(data.mainDish)
+                setDessert(data.dessert)
+                setDrink(data.drink)
+                setLoading(false)
+
+                // if(recipeType === 'All')
+                // {
+                //     const response = await fetch('/api/recipe')
+                //     const data = await response.json()
+                //     setRecipes(data)
+                //     setLoading(false)
+                // }
+                // else if(recipeType === 'Main Dish')
+                // {
+                //     const response = await fetch(`/api/recipe/search/${'main dish'}`)
+                //     const data = await response.json()
+                //     setRecipes(data)
+                //     setLoading(false)
+                // }
+                // else if(recipeType === 'Drink')
+                // {
+                //     const response = await fetch(`/api/recipe/search/${'drink'}`)
+                //     const data = await response.json()
+                //     setRecipes(data)
+                //     setLoading(false)
+                // }
+                // else if(recipeType === 'Dessert')
+                // {
+                //     const response = await fetch(`/api/recipe/search/${'dessert'}`)
+                //     const data = await response.json()
+                //     setRecipes(data)
+                //     setLoading(false)
+                // }
             
 
             } catch (error) {
@@ -80,28 +93,15 @@ const AllRecipe = ({recipeType}) => {
 
             <div className="border-b mb-5 flex justify-between text-sm">
                 <div className="flex items-center pb-2 pr-2 border-b-2 uppercase">
-                    {recipeType === 'All'?
-                        <p className="font-semibold inline-block color-warning">Recent recipe</p>:
-                        recipeType === 'Main Dish'?
-                        <p className="font-semibold inline-block color-warning">Recent main dish</p>:
-                        recipeType === 'Drink'?
-                        <p className="font-semibold inline-block color-warning">Recent drink</p>:
-                        recipeType === 'Dessert'?
-                        <p className="font-semibold inline-block color-warning">Recent dessert</p>:
-                        <></>
-                    }
+                  
+                    <p className="font-semibold inline-block color-warning">Recent recipe</p>:
+                        
                     
                 </div>
-                {recipeType === 'All'?
-                    <Link href="/search_all/">See All</Link>:
-                    recipeType === 'Main Dish'?
-                    <Link href="/search_result/main_dish">See All</Link>:
-                    recipeType === 'Drink'?
-                    <Link href="/search_result/drink">See All</Link>:
-                    recipeType === 'Dessert'?
-                    <Link href="/search_result/dessert">See All</Link>:<></>
+                
+                <Link href="/search_all/">See All</Link>
             
-                }
+              
                 
             </div>
 
@@ -139,7 +139,25 @@ const AllRecipe = ({recipeType}) => {
 
                 )}
 
+
+
+
+                
+
             </div>
+
+
+
+            
+        
+            <FrontCardList recipes={mainDish} recipeType={'Main Dish'} />
+             <FrontCardList recipes={dessert} recipeType={'Dessert'}/>
+            <FrontCardList recipes={drink} recipeType={'Drink'} />
+
+           
+
+
+
 
         </div>
     )

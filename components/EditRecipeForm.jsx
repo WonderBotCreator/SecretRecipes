@@ -10,6 +10,7 @@ import { useState, useEffect } from "react"
 import IngredientForm from "./IngredientForm"
 import InstructionForm from "./InstructionForm"
 import { useRouter } from "@node_modules/next/navigation"
+import Loading from "./Loading";
 
 const EditRecipeForm = ({id, userID})=>{
     const [recipe, setRecipe] = useState(null)
@@ -281,10 +282,7 @@ const EditRecipeForm = ({id, userID})=>{
         }, [])
     
         if (loading) {
-            console.log(id)
-            return (<div>
-                loading...
-            </div>)
+            return (<Loading/>)
         }
     return(
        <div className="flex flex-col justify-center items-center w-full bg-[#e3b986] px-2">

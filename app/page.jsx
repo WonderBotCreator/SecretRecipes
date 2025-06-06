@@ -8,10 +8,7 @@ const Home = ()=>{
         <div className="bg-[#e3b986]">
             
             <Promotion/>
-            <AllRecipe recipeType={'All'} />
-            <AllRecipe recipeType={'Main Dish'}/>
-            <AllRecipe recipeType={'Dessert'}/>
-            <AllRecipe recipeType={'Drink'}/>
+            <AllRecipe/>
             
         </div>
     )

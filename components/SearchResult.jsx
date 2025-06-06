@@ -75,7 +75,7 @@ const SearchResult = ({ query, recipesType }) => {
                             <div className="flex flex-col items-center">
                                 <h1 className="text-xl font-bold">Search</h1>
                                 <form onSubmit={handleSubmitSearch} className="flex flex-col items-center gap-4">
-                                    <input onChange={handleSearch} value={search} type="text" placeholder="Type here" className="input" />
+                                    <input onChange={handleSearch} value={search} type="text" placeholder="Type here" className="input mt-5" />
                                       <select onChange={handleRecipeType} value={recipeType} className="select">
              <option value="all">All</option>                           
   <option value="main dish">Main Dish</option>
@@ -83,7 +83,7 @@ const SearchResult = ({ query, recipesType }) => {
   <option value="drink">Drink</option>
 </select>
 
-                                    <button type="submit" className="btn btn-primary">search</button>
+                                    <button type="submit" className="btn btn-outline btn-accent">search</button>
                                 </form>
                             </div>
 
@@ -117,7 +117,7 @@ const SearchResult = ({ query, recipesType }) => {
                                                 {recipe.name}
                                             </h3>
                                             <div className="prose prose-slate prose-sm text-slate-600">
-                                                <p>{recipe.description}</p>
+                                                <p className="line-clamp-[3]">{recipe.description}</p>
                                             </div><Link
                                                 className="group inline-flex items-center h-9 rounded-full text-sm font-semibold whitespace-nowrap px-3 focus:outline-none focus:ring-2 bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 focus:ring-slate-500 mt-6"
                                                 href={`/recipe/${recipe.id}`}>Learn

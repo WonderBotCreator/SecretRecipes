@@ -1,5 +1,12 @@
 'use client'
 
+
+import { FileUploaderRegular, OutpitFileEntry, UploadCtxProvider } from "@node_modules/@uploadcare/react-uploader/dist/react-uploader"
+import {
+  deleteFile,
+  UploadcareSimpleAuthSchema,
+} from '@uploadcare/rest-client';
+
 import Link from "@node_modules/next/link"
 import { useState, useEffect } from "react"
 import { useRouter } from "@node_modules/next/navigation"
@@ -10,6 +17,45 @@ const ProfileDetail = ()=>{
     const [loading, setLoading] = useState(true)
 
     const [currentRecipe, setCurrentRecipe] = useState(null)
+    const [imageFile, setImageFile] = useState({cdnUrl: process.env.NEXT_PUBLIC_DEFAULT_USER_IMG, uuid:''})
+
+    const handleFileChange = async (imageFile) => {
+            //console.log(imageFile)
+    
+            const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
+                publicKey: process.env.NEXT_PUBLIC_U_PUBLIC_KEY,
+                secretKey: process.env.NEXT_PUBLIC_U_SECRET_KEY,
+            });
+    
+            const result = await deleteFile(
+                {
+                    uuid: imageFile.uuid,
+                },
+                { authSchema: uploadcareSimpleAuthSchema }
+            )
+            setImageFile({cdnUrl: process.env.NEXT_PUBLIC_DEFAULT_USER_IMG, uuid:''})
+    
+    }
+    
+    
+    const handleFileUpload = async(imageFile) => {
+
+        if(imageFile.uuid !== "")
+        {
+            const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
+                publicKey: process.env.NEXT_PUBLIC_U_PUBLIC_KEY,
+                secretKey: process.env.NEXT_PUBLIC_U_SECRET_KEY,
+            });
+
+            const result = await deleteFile(
+                {
+                    uuid: imageFile.uuid,
+                },
+                { authSchema: uploadcareSimpleAuthSchema }
+            )
+        }
+        setImageFile(imageFile)
+    }
 
 
     const handleCurrentRecipe = (event,recipe)=>{
@@ -56,6 +102,13 @@ const ProfileDetail = ()=>{
                     const data = await response.json()
                     //console.log(data)
                     setUser(data)
+                    if(data.imageID !== '')
+                    {
+                        setImageFile({
+                            cdnUrl: data.image,
+                            uuid: data.imageID
+                        })
+                    }
                     setLoading(false)
     
                 } catch (error) {
@@ -153,12 +206,31 @@ const ProfileDetail = ()=>{
                     <div className="col-span-4 sm:col-span-3">
                         <div className="bg-white shadow rounded-lg p-6">
                             <div className="flex flex-col items-center">
-                                <img src={user.image} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                                <img src={imageFile.cdnUrl} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
                                 </img>
                                 <h1 className="text-xl font-bold">{user.username}</h1>
                                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                                    <a href="#" className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Change Image</a>
+                                     <div className="justify-center items-center">
+                                  <fieldset className="fieldset w-full justify-center items-center">
+                            <legend className="justify-center ">profile image</legend>
+                            <div>
+
+                                <FileUploaderRegular
+                                    sourceList="local"
+                                    useCloudImageEditor={false}
+                                    classNameUploader="uc-light"
+                                    pubkey={process.env.NEXT_PUBLIC_U_PUBLIC_KEY}
+                                    multiple="false"
+                                    accept="image/*"
+                                    onFileUploadSuccess={handleFileUpload}
+                                    onFileRemoved={handleFileChange}
+                                />
+                            </div>
+
+
+                        </fieldset>
+                            </div>
                                 </div>
                             </div>
                             <hr className="my-6 border-t border-gray-300" />

@@ -70,7 +70,7 @@ const LoginForm = () => {
                 <div className="basic-64"></div>
                 <div className="basic-128 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <form onSubmit={submitLogin} className="space-y-6" action="#">
-                        <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our SuitLab</h5>
+                        <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in</h5>
 
                          {notification != '' ?
                 <div role="alert" className="alert alert-error mt-10">

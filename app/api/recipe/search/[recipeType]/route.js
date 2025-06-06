@@ -11,8 +11,8 @@ export const GET = async (request, { params }) => {
     await connectToDB()
 
     const recipes = recipeType !== 'all'
-                        ? await Recipe.find({recipeType: recipeType}).populate('instructions ingredients user')
-                        : await Recipe.find().populate('instructions ingredients user')
+                        ? await Recipe.find({recipeType: recipeType}).sort({ _id: -1 })
+                        : await Recipe.find().sort({ _id: -1 })
 
     return NextResponse.json(recipes)
 }

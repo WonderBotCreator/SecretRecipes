@@ -4,36 +4,14 @@ const Promotion = ()=>{
 
 
 
-<div className="carousel carousel-center rounded-box mb-10 ">
-  <div className="carousel-item">
-    <img src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Pizza" />
-  </div>
-  <div className="carousel-item">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
-      alt="Pizza" />
-  </div>
-  <div className="carousel-item">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
-      alt="Pizza" />
-  </div>
-  <div className="carousel-item">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
-      alt="Pizza" />
-  </div>
-  <div className="carousel-item">
-    <img src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp" alt="Pizza" />
-  </div>
-  <div className="carousel-item">
-    <img src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp" alt="Pizza" />
-  </div>
-  <div className="carousel-item">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
-      alt="Pizza" />
-  </div>
+<div className="relative h-96 w-full mb-10">
+    <img src="https://www.sheknows.com/wp-content/uploads/2020/06/best-picnic-food-cover-amazon.jpg" alt="Background Image" className="absolute inset-0 w-full h-full object-cover filter "/>
+    
+    <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <h1 className="text-4xl text-orange-400 font-bold">Suitlub: Secret Recipe</h1>
+        <hr></hr>
+        <p className="text-xl text-orange mt-4">create and share wonderful recipe</p>
+    </div>
 </div>
 
 
