@@ -2,6 +2,7 @@ import { NextResponse } from "@node_modules/next/server";
 
 import Recipe from "@models/recipe"
 import Instruction from "@models/instruction"
+import User from "@models/user"
 
 import { connectToDB } from "@utils/database";
 
