@@ -82,7 +82,8 @@ export const authOptions = {
                     return token
                 },
                 async session({ session, token, user }) {
-                    
+                    await connectToDB()
+                    const userObject = await User.findOne({ username: session.user.name })
                     session.user.id = userObject.id
                     session.user.token = token
                     return session
