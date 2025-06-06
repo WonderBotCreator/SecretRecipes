@@ -7,7 +7,7 @@ export async function middleware(request){
         secret: process.env.NEXTAUTH_SECRET
     })
 
-    console.log(user)
+    console.log('get sesseion '+user)
 
     const {pathname} = request.nextUrl
 
@@ -15,9 +15,11 @@ export async function middleware(request){
         return NextResponse.redirect(new URL('/login', request.url))
     }
 
+    
+
     return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/protected/:path*'], // Apply middleware only to protected routes
+  matcher: ['/protected/:path*', '/api/:path*'], // Apply middleware only to protected routes
 };

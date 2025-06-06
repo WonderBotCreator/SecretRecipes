@@ -50,23 +50,41 @@ const RecipeDetail = ({ id }) => {
                     
                     <div className="col-span-4 sm:col-span-9">
                         
-                        <div className="bg-white shadow rounded-lg p-6 ">
+                        <div className="bg-white shadow rounded-lg p-20">
                             <div className="flex justify-center items-center">
-                            <h2 className="text-xl font-bold mb-4">{recipe.name}</h2>
+                                
+                                     {/* <h2 className="text-xl font-bold mt-10 mb-10 text-amber-400">{recipe.name}</h2> */}
+                               
+                           
+            <div class="relative inline-block mb-10">
+  <span class="text-2xl md:text-3xl font-bold">
+   <h1
+        class="text-3xl mt-10 mb-2 font-extrabold text-amber-900">
+       {recipe.name}
+    </h1>
+
+    {/* <h1
+        class="text-3xl mt-10 mb-2 font-extrabold text-transparent bg-clip-text  bg-gradient-to-r from-amber-500 to-amber-500">
+       {recipe.name}
+    </h1> */}
+  </span>
+  <span class="absolute -bottom-1 left-0 w-full h-1 bg-amber-900"></span>
+  {/* <span class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-600 rounded-full"></span> */}
+</div>
                            </div>
                             <div className="flex justify-center items-center">
                                 <img  className="w-96 h-96 object-cover" src={recipe.image? recipe.image:""}  width="500" height="500" />
                             </div>
                              
                             
-                        <div>
-                            <h2 className="text-xl font-bold mb-4">Description</h2>
+                        <div className="mt-20">
+                            <h2 className="text-xl font-bold mb-4  text-amber-900">Description</h2>
                             <p className="text-gray-700">{recipe.description}
                             </p>
-</div>
+                        </div>
                              
 
-                         <h2 className="text-xl font-bold mt-6 mb-4">Detail</h2>
+                         <h2 className="text-xl font-bold text-center mt-10 mb-4  text-amber-900">Detail</h2>
                         <table className="table">
                                  {/* head */}
                                  <thead>
@@ -94,7 +112,7 @@ const RecipeDetail = ({ id }) => {
                                  </tbody>
                              </table>
 
-                             <h2 className="text-xl font-bold mt-6 mb-4">Ingredient</h2>
+                             <h2 className="text-xl text-center font-bold mt-10 mb-4  text-amber-900">Ingredient</h2>
                             <div className="flex justify-center items-center">
                             <table className="table">
                                  {/* head */}
@@ -120,19 +138,19 @@ const RecipeDetail = ({ id }) => {
                            </div>
 
 
-                            <h2 className="text-xl font-bold mt-6 mb-4">Instructions</h2>
+                            <h2 className="text-xl text-center font-bold mt-10 mb-15  text-amber-900">Instructions</h2>
 
                             {recipe.instructions.map((instruction,i)=>
                                 <div key={instruction.id} className="mb-6">
-                                    <div className="flex justify-between flex-wrap gap-2 w-full">
+                                    {/* <div className="flex justify-between flex-wrap gap-2 w-full">
                                         <span className="text-gray-700 font-bold">{i+1}</span>
-                                    </div>
+                                    </div> */}
 
                                     <div className="flex justify-center items-center">
                                 <img  className="w-50 h-50 object-cover" src={instruction.image? instruction.image:""}  width="200" height="200" />
                             </div>
-                                    <p className="mt-2">
-                                        {instruction.description}
+                                    <p className="mt-10">
+                                        {(i+1)+". "+instruction.description}
                                     </p>
                                 </div>
 
@@ -145,7 +163,7 @@ const RecipeDetail = ({ id }) => {
                     <div className="col-span-4 sm:col-span-3">
                         <div className="bg-white shadow rounded-lg p-6">
                             <div className="flex flex-col items-center">
-                                <img src="https://randomuser.me/api/portraits/men/94.jpg" className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                                <img src={recipe.user.image} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
                                 </img>
                                 <h1 className="text-xl font-bold">{recipe.user.username}</h1>
