@@ -4,7 +4,8 @@ import { NextResponse } from "@node_modules/next/server";
 export async function middleware(request){
     const user = await getToken({
         req: request,
-        secret: process.env.NEXTAUTH_SECRET
+        secret: process.env.NEXTAUTH_SECRET,
+        secureCookie: true
     })
 
     console.log('get sesseion '+user)

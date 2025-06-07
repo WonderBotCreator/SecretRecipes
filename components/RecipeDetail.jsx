@@ -56,19 +56,19 @@ const RecipeDetail = ({ id }) => {
                                      {/* <h2 className="text-xl font-bold mt-10 mb-10 text-amber-400">{recipe.name}</h2> */}
                                
                            
-            <div class="relative inline-block mb-10">
-  <span class="text-2xl md:text-3xl font-bold">
+            <div className="relative inline-block mb-10">
+  <span className="text-2xl md:text-3xl font-bold">
    <h1
-        class="text-3xl mt-10 mb-2 font-extrabold text-amber-900">
+        className="text-3xl mt-10 mb-2 font-extrabold text-amber-900">
        {recipe.name}
     </h1>
 
     {/* <h1
-        class="text-3xl mt-10 mb-2 font-extrabold text-transparent bg-clip-text  bg-gradient-to-r from-amber-500 to-amber-500">
+        className="text-3xl mt-10 mb-2 font-extrabold text-transparent bg-clip-text  bg-gradient-to-r from-amber-500 to-amber-500">
        {recipe.name}
     </h1> */}
   </span>
-  <span class="absolute -bottom-1 left-0 w-full h-1 bg-amber-900"></span>
+  <span className="absolute -bottom-1 left-0 w-full h-1 bg-amber-900"></span>
   {/* <span class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-600 rounded-full"></span> */}
 </div>
                            </div>
