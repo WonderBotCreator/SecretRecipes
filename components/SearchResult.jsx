@@ -10,34 +10,63 @@ const SearchResult = ({ query, recipesType }) => {
     const [recipeType, setRecipeType] = useState(recipesType)
     const [search, setSearch] = useState(query)
     const [searchHeader, setSearchHeader] = useState(query)
+    const [pages, setPages] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
 
-    const handleRecipeType = (event)=>{
+    const handleRecipeType = (event) => {
         setRecipeType(event.target.value)
     }
 
-    const handleSearch = (event)=>{
+    const handleSearch = (event) => {
         setSearch(event.target.value)
     }
 
 
-    const handleSubmitSearch = async(event) => {
+    const handleSubmitSearch = async (event) => {
         event.preventDefault()
         setLoading(true)
-        const response = await fetch(`/api/recipe/search/${recipeType}/${search}`)
+        setCurrentPage(1)
+        const response = await fetch(`/api/recipe/search/${recipeType}/1/${search}`)
         const data = await response.json()
-        setRecipes(data)
+        setRecipes(data.recipes)
         setSearchHeader(search)
         setLoading(false)
 
     }
 
+    const handleNextPage = async (event) => {
+        event.preventDefault()
+        setLoading(true)
+        setCurrentPage(currentPage + 1)
+
+        const response = await fetch(`/api/recipe/search/${recipeType}/${currentPage + 1}/${search}`)
+        const data = await response.json()
+        setRecipes(data.recipes)
+        //setSearchHeader(search)
+        setLoading(false)
+
+    }
+
+    const handlePrevPage = async (event) => {
+        event.preventDefault()
+        setLoading(true)
+        setCurrentPage(currentPage - 1)
+
+        const response = await fetch(`/api/recipe/search/${recipeType}/${currentPage - 1}/${search}`)
+        const data = await response.json()
+        setRecipes(data.recipes)
+        //setSearchHeader(search)
+        setLoading(false)
+    }
+
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
-                const response = await fetch(`/api/recipe/search/${recipeType}/${search}`)
+                const response = await fetch(`/api/recipe/search/${recipeType}/${currentPage}/${search}`)
                 const data = await response.json()
                 console.log(data)
-                setRecipes(data)
+                setRecipes(data.recipes)
+                setPages(data.pages)
                 setLoading(false)
 
             } catch (error) {
@@ -50,19 +79,19 @@ const SearchResult = ({ query, recipesType }) => {
 
     if (loading) {
         return (<div>
-                <div className="absolute bg-white bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
-                    <div className="flex items-center">
-                        <span className="text-3xl mr-4">Loading</span>
-                        <svg className="animate-spin h-8 w-8 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                            </path>
-                        </svg>
-                    </div>
+            <div className="absolute bg-white bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
+                <div className="flex items-center">
+                    <span className="text-3xl mr-4">Loading</span>
+                    <svg className="animate-spin h-8 w-8 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
                 </div>
-            </div>)
+            </div>
+        </div>)
     }
 
     return (
@@ -76,12 +105,12 @@ const SearchResult = ({ query, recipesType }) => {
                                 <h1 className="text-xl font-bold">Search</h1>
                                 <form onSubmit={handleSubmitSearch} className="flex flex-col items-center gap-4">
                                     <input onChange={handleSearch} value={search} type="text" placeholder="Type here" className="input mt-5" />
-                                      <select onChange={handleRecipeType} value={recipeType} className="select">
-             <option value="all">All</option>                           
-  <option value="main dish">Main Dish</option>
-  <option value="dessert">Dessert</option>
-  <option value="drink">Drink</option>
-</select>
+                                    <select onChange={handleRecipeType} value={recipeType} className="select">
+                                        <option value="all">All</option>
+                                        <option value="main dish">Main Dish</option>
+                                        <option value="dessert">Dessert</option>
+                                        <option value="drink">Drink</option>
+                                    </select>
 
                                     <button type="submit" className="btn btn-outline btn-accent">search</button>
                                 </form>
@@ -99,7 +128,13 @@ const SearchResult = ({ query, recipesType }) => {
                             </div>
 
                             <h2 className="text-xl font-bold mt-6 mb-4">Search Results '{searchHeader}'</h2>
-                            <ul className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+
+
+                            {recipes.length === 0?
+                            
+                                <h2 className="text-xl text-center font-bold mt-20 mb-4 h-96">No recipe</h2>:
+
+                                     <ul className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                                 {recipes.map(recipe =>
 
                                     <li key={recipe.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
@@ -134,8 +169,23 @@ const SearchResult = ({ query, recipesType }) => {
                                 )}
 
                             </ul>
+                        }
 
 
+
+                           
+
+                            <div className="join grid grid-cols-2 gap-5">
+
+                                {currentPage > 1 ?
+                                    <button onClick={handlePrevPage} className="join-item btn btn-outline">Previous page</button> : <div className="join-item"></div>
+
+                                }
+                                {currentPage < pages ?
+                                    <button onClick={handleNextPage} className="join-item btn btn-outline">Next</button> : <div className="join-item"></div>
+                                }
+
+                            </div>
 
 
 

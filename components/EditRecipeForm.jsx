@@ -215,7 +215,7 @@ const EditRecipeForm = ({id, userID})=>{
 
     const saveRecipe = async(event)=>{
         event.preventDefault()
-
+        setLoading(true)
        
         try {
 
@@ -235,19 +235,20 @@ const EditRecipeForm = ({id, userID})=>{
             })
 
             if (!response?.ok) {
-                console.log(response)
+                //console.log(response)
+                setLoading(false)
                 return
             }
 
             if (response?.ok) {
-                console.log(response)
+                //console.log(response)
                 router.replace(`/protected/profile/${userID}`)
             }
 
             //router.refresh()
 
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
 

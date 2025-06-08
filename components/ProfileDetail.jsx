@@ -38,7 +38,8 @@ const ProfileDetail = ()=>{
     }
     
     
-    const handleFileUpload = async(imageFile) => {
+    const handleFileUpload = async(imageFile2) => {
+        setLoading(true)
 
         if(imageFile.uuid !== "")
         {
@@ -54,6 +55,30 @@ const ProfileDetail = ()=>{
                 { authSchema: uploadcareSimpleAuthSchema }
             )
         }
+        const response = await fetch('/api/profile', {
+                method: 'PUT',
+                 body: JSON.stringify({
+                    image: imageFile2.cdnUrl,
+                    imageID: imageFile2.uuid
+                }),
+        })
+
+
+        const data = await response.json()
+
+
+        if(!data?.success)
+        {
+            setLoading(false)
+            //setNotification(data?.message)
+            return
+        }
+        //console.log(data)
+
+       router.replace(`/protected/profile/${user.id}`)
+
+
+
         setImageFile(imageFile)
     }
 
@@ -66,7 +91,7 @@ const ProfileDetail = ()=>{
 
     const deleteRecipe = async(event)=>{
         event.preventDefault()
-
+        setLoading(true)
        
         try {
 
@@ -78,20 +103,21 @@ const ProfileDetail = ()=>{
             })
 
             if (!response?.ok) {
-                console.log(response)
+                //console.log(response)
+                setLoading(false)
                 return
             }
 
             if (response?.ok && user) {
-                console.log(user.id)
+                //console.log(user.id)
                 router.replace(`/protected/profile/${user.id}/delete_recipe_success`)
                 //router.refresh()
             }
-            console.log(response)
+            //console.log(response)
             //router.refresh()
 
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
 
@@ -213,8 +239,8 @@ const ProfileDetail = ()=>{
                                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
                                      <div className="justify-center items-center">
                                   <fieldset className="fieldset w-full justify-center items-center">
-                            <legend className="justify-center ">profile image</legend>
-                            <div>
+                            {/* <legend className="justify-center ">profile image</legend> */}
+                            {/* <div>
 
                                 <FileUploaderRegular
                                     sourceList="local"
@@ -226,7 +252,7 @@ const ProfileDetail = ()=>{
                                     onFileUploadSuccess={handleFileUpload}
                                     onFileRemoved={handleFileChange}
                                 />
-                            </div>
+                            </div> */}
 
 
                         </fieldset>

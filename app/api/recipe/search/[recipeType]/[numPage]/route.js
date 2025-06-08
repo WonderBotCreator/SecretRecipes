@@ -1,28 +1,29 @@
-import { getServerSession } from "next-auth/next";
 import { NextResponse } from "@node_modules/next/server";
-import User from "@models/user"
+
+import Recipe from "@models/recipe"
+
 import { connectToDB } from "@utils/database";
 
-export async function GET(request, { params }) {
 
-    const { id, numPage } = await params
+export const GET = async (request, { params }) => {
+    const { recipeType, numPage} = await params
 
-    try {
-
-        await connectToDB()
-        const user = await User.findById(id).populate('recipes')
-
-        if (!user) {
-            return NextResponse.json({ message: 'Something went wrong' }, { status: 400 })
-        }
+    await connectToDB()
 
 
-        const filteredRecipe = user.recipes
+     const recipes = recipeType !== 'all'
+                    ? await Recipe.find({recipeType: recipeType}).sort({ _id: -1 })
+                    : await Recipe.find().sort({ _id: -1 })
+    
 
+    
+    // const filteredRecipe = recipes.filter((recipe)=>{
+    //     return recipe.name.toLowerCase().includes(query.toLowerCase())
+    // })
 
-        const lengthOfEachPage = 6
+    const lengthOfEachPage = 6
 
-    //const filteredRecipe = recipes
+    const filteredRecipe = recipes
 
     const numRecipes = filteredRecipe.length
 
@@ -48,7 +49,7 @@ export async function GET(request, { params }) {
     if(numPages > pages || numPages < 1)
     {
         sumRecipes = []
-        return NextResponse.json({user: user, recipes: sumRecipes}, { status: 201 })
+        return NextResponse.json({recipes:sumRecipes, pages: pages})
     }
 
 
@@ -66,13 +67,8 @@ export async function GET(request, { params }) {
     }
 
 
+   
+    
 
-
-
-        return NextResponse.json({user: user, recipes: sumRecipes}, { status: 201 })
-
-    } catch (error) {
-
-    }
-
+    return NextResponse.json({recipes:sumRecipes, pages: pages})
 }

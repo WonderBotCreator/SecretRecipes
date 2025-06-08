@@ -2,6 +2,7 @@
 
 import Link from "@node_modules/next/link"
 import { useState, useEffect } from "react"
+import Loading from "./Loading"
 
 
 
@@ -9,29 +10,21 @@ const ViewProfile = ({ id }) => {
 
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
-
-    const [currentRecipe, setCurrentRecipe] = useState(null)
-
-
-    const handleCurrentRecipe = (event, recipe) => {
-        setCurrentRecipe(recipe)
-        document.getElementById('my_modal_1').showModal()
-    }
+    const [recipes, setRecipes] = useState([])
 
 
-    const deleteRecipe = () => {
 
-    }
 
 
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch('/api/profile')
+                const response = await fetch(`/api/profile/${id}/1`)
                 const data = await response.json()
                 //console.log(data)
-                setUser(data)
+                setUser(data.user)
+                setRecipes(data.recipes)
                 setLoading(false)
 
             } catch (error) {
@@ -43,7 +36,7 @@ const ViewProfile = ({ id }) => {
     }, [])
 
     if (loading) {
-        return (<div>loading</div>)
+        return (<Loading/>)
     }
     return (
         <div className="bg-[#e3b986]">
@@ -59,15 +52,24 @@ const ViewProfile = ({ id }) => {
 
                             <h2 className="text-xl font-bold mt-6 mb-4">Recipes</h2>
                             <ul className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                                {user.recipes.map(recipe =>
+                                {recipes.map(recipe =>
 
                                     <li key={recipe.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                                         <div className="order-1 sm:ml-6 xl:ml-0">
                                             <h3 className="mb-1 text-slate-900 font-semibold">
-                                                <span className="mb-1 block text-sm leading-6 text-indigo-500">Headless UI</span>{recipe.name}
+
+
+                                                {recipe.recipeType === 'main dish' ?
+                                                    <span className="mb-1 block text-sm leading-6 text-orange-700">Main Dish</span> :
+                                                    recipe.recipeType === 'drink' ?
+                                                        <span className="mb-1 block text-sm leading-6 text-sky-600">Drink</span> :
+                                                        recipe.recipeType === 'dessert' ?
+                                                            <span className="mb-1 block text-sm leading-6 text-indigo-600">Dessert</span> : <></>
+                                                }
+                                                {recipe.name}
                                             </h3>
                                             <div className="prose prose-slate prose-sm text-slate-600">
-                                                <p>{recipe.description}</p>
+                                                <p className="line-clamp-[3]">{recipe.description}</p>
                                             </div><Link
                                                 className="group inline-flex items-center h-9 rounded-full text-sm font-semibold whitespace-nowrap px-3 focus:outline-none focus:ring-2 bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 focus:ring-slate-500 mt-6"
                                                 href={`/recipe/${recipe.id}`}>Learn
@@ -78,7 +80,7 @@ const ViewProfile = ({ id }) => {
                                                     <path d="M0 0L3 3L0 6"></path>
                                                 </svg></Link>
                                         </div>
-                                        <img src={recipe.image} alt="" className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
+                                        <img src={recipe.image} alt="" className="w-70 h-70 object-cover" />
                                     </li>
 
                                 )}
@@ -96,7 +98,7 @@ const ViewProfile = ({ id }) => {
                     <div className="col-span-4 sm:col-span-3">
                         <div className="bg-white shadow rounded-lg p-6">
                             <div className="flex flex-col items-center">
-                                <img src="https://randomuser.me/api/portraits/men/94.jpg" className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                                <img src={user.image} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
                                 </img>
                                 <h1 className="text-xl font-bold">{user.username}</h1>

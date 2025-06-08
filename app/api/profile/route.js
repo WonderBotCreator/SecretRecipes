@@ -19,3 +19,18 @@ export async function GET(request){
 
     return NextResponse.json(user, {status:201})
 }
+
+
+export async function PUT(request){
+     const { image, imageID} = await request.json()
+     const session = await getServerSession(authOptions)
+     const user = await User.findOne({ username: session.user.name }).populate('recipes')
+
+     user.image = image
+     user.imageID = imageID
+
+     await user.save()
+
+
+    return NextResponse.json({success: true, message: "Edit user image successfuly"},{status: 201})
+}
