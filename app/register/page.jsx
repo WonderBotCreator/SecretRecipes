@@ -76,7 +76,7 @@ const RegisterPage = () => {
             setNotification(data?.message)
             return
         }
-        console.log(data)
+
 
         router.push('/register_success')
 

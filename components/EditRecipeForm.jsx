@@ -91,7 +91,7 @@ const EditRecipeForm = ({id, userID})=>{
             },
             { authSchema: uploadcareSimpleAuthSchema }
         )
-        //setInstructionImage(null)
+        
         setInstructions(instructions.map((instruction,index)=> index ===i? instructionsObject[i]: instruction))
 
     }
@@ -111,13 +111,13 @@ const EditRecipeForm = ({id, userID})=>{
 
     const handlePortionNumber = (event) => {
         const num = event.target.value.toString()
-        //console.log(num)
+        
         setPortionNumber(num)
     }
 
     const handleTimeConsumption = (event) => {
         const num = event.target.value.toString()
-        //console.log(num)
+        
         setTimeConsumption(num)
     }
 
@@ -154,7 +154,7 @@ const EditRecipeForm = ({id, userID})=>{
         if (i > -1) {
             instructionsObject.splice(i, 1)
         }
-        //console.log(instructionsObject)
+        
         setNumInstruction(numInstruction - 1)
 
         setInstructions(instructionsObject)
@@ -196,7 +196,7 @@ const EditRecipeForm = ({id, userID})=>{
 
 
      const handleFileChange = async (imageFile) => {
-            //console.log(imageFile)
+            
     
             const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
                 publicKey: process.env.NEXT_PUBLIC_U_PUBLIC_KEY,
@@ -235,20 +235,20 @@ const EditRecipeForm = ({id, userID})=>{
             })
 
             if (!response?.ok) {
-                //console.log(response)
+               
                 setLoading(false)
                 return
             }
 
             if (response?.ok) {
-                //console.log(response)
+                
                 router.replace(`/protected/profile/${userID}`)
             }
 
             //router.refresh()
 
         } catch (error) {
-            //console.log(error)
+            
         }
     }
 
@@ -260,7 +260,7 @@ const EditRecipeForm = ({id, userID})=>{
                 try {
                     const response = await fetch(`/api/recipe/${id}`)
                     const data = await response.json()
-                    console.log(data)
+                    
                     setRecipe(data)
                     setLoading(false)
 

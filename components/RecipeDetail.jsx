@@ -163,7 +163,7 @@ const RecipeDetail = ({ id }) => {
                     <div className="col-span-4 sm:col-span-3">
                         <div className="bg-white shadow rounded-lg p-6">
                             <div className="flex flex-col items-center">
-                                <img src={recipe.user.image} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                                <img src="https://ucarecdn.com/1d37c0cc-0a69-4493-909f-bf1d4bcd3a52/default_user_image.jpg"  className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
                                 </img>
                                 <h1 className="text-xl font-bold">{recipe.user.username}</h1>

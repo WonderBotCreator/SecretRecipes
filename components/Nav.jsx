@@ -25,12 +25,7 @@ const Nav = ({ userInput }) => {
   }
 
 
-  // useEffect(() => {
-  //   if (status === 'unauthenticated') {
-  //     //router.push('/login')
-  //     router.refresh()
-  //   }
-  // }, [status, router])
+
 
   if (session === undefined) {
     return (
@@ -141,7 +136,7 @@ const Nav = ({ userInput }) => {
   }
 
   if (session !== null) {
-    console.log(session)
+    
     return (
 
 

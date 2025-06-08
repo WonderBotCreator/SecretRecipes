@@ -42,7 +42,7 @@ const SearchResult = ({ query, recipesType }) => {
         const response = await fetch(`/api/recipe/search/${recipeType}/${currentPage + 1}/${search}`)
         const data = await response.json()
         setRecipes(data.recipes)
-        //setSearchHeader(search)
+
         setLoading(false)
 
     }
@@ -55,7 +55,7 @@ const SearchResult = ({ query, recipesType }) => {
         const response = await fetch(`/api/recipe/search/${recipeType}/${currentPage - 1}/${search}`)
         const data = await response.json()
         setRecipes(data.recipes)
-        //setSearchHeader(search)
+
         setLoading(false)
     }
 
@@ -64,7 +64,7 @@ const SearchResult = ({ query, recipesType }) => {
             try {
                 const response = await fetch(`/api/recipe/search/${recipeType}/${currentPage}/${search}`)
                 const data = await response.json()
-                console.log(data)
+
                 setRecipes(data.recipes)
                 setPages(data.pages)
                 setLoading(false)

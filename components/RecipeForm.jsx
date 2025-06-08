@@ -45,13 +45,11 @@ const RecipeForm = () => {
 
     const handleInstructionImage = (imageFile,i)=>{
 
-        //console.log(imageFile.status)
         
         const instructionsObject = instructions
         instructionsObject[i].image = imageFile.cdnUrl
         instructionsObject[i].imageID = imageFile.uuid
-        // const newImages = instructionImage.concat(imageFile)
-        //setInstructionImage(null)
+
         setInstructions(instructions.map((instruction,index)=> index ===i? instructionsObject[i]: instruction))
     }
 
@@ -71,7 +69,7 @@ const RecipeForm = () => {
             },
             { authSchema: uploadcareSimpleAuthSchema }
         )
-        //setInstructionImage(null)
+
         setInstructions(instructions.map((instruction,index)=> index ===i? instructionsObject[i]: instruction))
 
     }
@@ -81,7 +79,7 @@ const RecipeForm = () => {
     }
 
     const handleFileChange = async (imageFile) => {
-        //console.log(imageFile)
+
 
         const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
             publicKey: process.env.NEXT_PUBLIC_U_PUBLIC_KEY,
@@ -110,13 +108,13 @@ const RecipeForm = () => {
 
     const handlePortionNumber = (event) => {
         const num = event.target.value.toString()
-        //console.log(num)
+
         setPortionNumber(num)
     }
 
     const handleTimeConsumption = (event) => {
         const num = event.target.value.toString()
-        //console.log(num)
+
         setTimeConsumption(num)
     }
 
@@ -168,7 +166,7 @@ const RecipeForm = () => {
         if (i > -1) {
             instructionsObject.splice(i, 1)
         }
-        //console.log(instructionsObject)
+
         setNumInstruction(numInstruction - 1)
 
         setInstructions(instructionsObject)
@@ -189,26 +187,25 @@ const RecipeForm = () => {
 
     const handleInstructionDescription = (event, i) => {
         const instructionsObject = instructions
-        //setDescription('')
+
         instructionsObject[i].description = event.target.value
-        //setDescription(event.target.value)
-        //console.log(instructionsObject)
+  
         setInstructions(instructions.map((instruction,index)=> index ===i? instructionsObject[i]: instruction))
     }
 
     const handleIngredientName = (event, i) => {
         const ingredientObject = ingredients
-        //setIngredientDescription('')
+   
         ingredientObject[i].name = event.target.value
-        //setIngredientDescription(event.target.value)
+
         setIngredients(ingredients.map((ingredient, index)=> ingredient===i? ingredientObject[i]: ingredient))
     }
 
     const handleIngredientAmount = (event, i) => {
         const ingredientObject = ingredients
-        //setIngredientAmount('')
+
         ingredientObject[i].amount = event.target.value
-        //setIngredientAmount(event.target.value)
+
         setIngredients(ingredients.map((ingredient, index)=> ingredient===i? ingredientObject[i]: ingredient))
     }
 
