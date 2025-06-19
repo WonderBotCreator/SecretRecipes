@@ -53,7 +53,7 @@ const Nav = ({ userInput }) => {
 
       <div className="navbar bg-base-100 shadow-sm p-6">
         <div className="navbar-start">
-          <div className="dropdown">
+          {/* <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
             </div>
@@ -65,17 +65,11 @@ const Nav = ({ userInput }) => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li><a>Item 1</a></li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li><a>Submenu 1</a></li>
-                  <li><a>Submenu 2</a></li>
-                </ul>
-              </li>
-              <li><a>Item 3</a></li>
+              <li><Link href="/login">Login</Link></li>
+              <li><Link href="/register">Register</Link></li>
+              
             </ul>
-          </div>
+          </div> */}
           <Link href="/" className="btn btn-ghost text-xl">SuitLub</Link>
 
         </div>
@@ -87,18 +81,8 @@ const Nav = ({ userInput }) => {
 
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
-              <li><a>Link</a></li>
-              <li><a>Link</a></li>
-              <li>
-                <details>
-                  <summary>Parent</summary>
-                  <ul className="bg-base-100 rounded-t-none p-2">
-                    <li><a>Link 1</a></li>
-                    <li><a>Link 2</a></li>
-                    <li><a>Link 3</a></li>
-                  </ul>
-                </details>
-              </li>
+              <li><Link href="/login">Login</Link></li>
+              <li><Link href="/register">Register</Link></li>
             </ul>
           </div>
         </div>
@@ -145,29 +129,7 @@ const Nav = ({ userInput }) => {
 
       <div className="navbar bg-base-100 shadow-sm p-6">
         <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
-            </div>
-
-
-
-
-
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li><a>Item 1</a></li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li><a>Submenu 1</a></li>
-                  <li><a>Submenu 2</a></li>
-                </ul>
-              </li>
-              <li><a>Item 3</a></li>
-            </ul>
-          </div>
+          
           <Link href="/" className="btn btn-ghost text-xl">Suitlab</Link>
 
         </div>
@@ -179,18 +141,13 @@ const Nav = ({ userInput }) => {
 
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
-              <li><a>Link</a></li>
-              <li><a>Link</a></li>
               <li>
-                <details>
-                  <summary>Parent</summary>
-                  <ul className="bg-base-100 rounded-t-none p-2">
-                    <li><a>Link 1</a></li>
-                    <li><a>Link 2</a></li>
-                    <li><a>Link 3</a></li>
-                  </ul>
-                </details>
-              </li>
+                  <Link href={`/protected/profile/${session?.user?.id}`} className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li><Link href="/protected/create_recipe">Create recipe</Link></li>
+                <li><button onClick={() => signOut()}>Logout</button></li>
             </ul>
           </div>
         </div>
