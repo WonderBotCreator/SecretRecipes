@@ -62,13 +62,12 @@ export const GET = async (request, { params }) => {
 
     for(let i = start;i< last;i++ )
     {
-        console.log(filteredRecipe[i])
+        //console.log(filteredRecipe[i])
         sumRecipes.push(filteredRecipe[i])
     }
 
 
    
-    
 
     return NextResponse.json({recipes:sumRecipes, pages: pages})
 }

@@ -25,10 +25,12 @@ const SearchResult = ({ query, recipesType }) => {
     const handleSubmitSearch = async (event) => {
         event.preventDefault()
         setLoading(true)
+
         setCurrentPage(1)
         const response = await fetch(`/api/recipe/search/${recipeType}/1/${search}`)
         const data = await response.json()
         setRecipes(data.recipes)
+        setPages(data.pages)
         setSearchHeader(search)
         setLoading(false)
 
@@ -181,7 +183,7 @@ const SearchResult = ({ query, recipesType }) => {
                                     <button onClick={handlePrevPage} className="join-item btn btn-outline">Previous page</button> : <div className="join-item"></div>
 
                                 }
-                                {currentPage < pages ?
+                                {currentPage < pages && pages > 1 ?
                                     <button onClick={handleNextPage} className="join-item btn btn-outline">Next</button> : <div className="join-item"></div>
                                 }
 
