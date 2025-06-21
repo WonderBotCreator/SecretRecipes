@@ -295,7 +295,7 @@ const EditRecipeForm = ({id, userID})=>{
                 <h1
                     className={`text-center text-xl sm:text-3xl font-semibold bg-white text-black`}
                 >
-                    Create Recipe
+                    Edit Recipe
                 </h1>
                 <div className="w-full mt-8 bg-white">
                     <div className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
