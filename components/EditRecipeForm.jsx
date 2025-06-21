@@ -267,6 +267,7 @@ const EditRecipeForm = ({id, userID})=>{
                     setRecipeName(data.name)
                     setImageFile(data.image)
                     setRecipeDescription(data.description)
+                    setRecipeType(data.recipeType)
                     setPortionNumber(data.portionNumber)
                     setTimeConsumption(data.timeConsumption)
                     setIngredients(data.ingredients)
@@ -318,7 +319,7 @@ const EditRecipeForm = ({id, userID})=>{
 
                         <fieldset className="fieldset w-full">
                             <legend className="fieldset-legend">Recipe Categories</legend>
-                           <select onChange={handleRecipeType} value={recipeType} defaultValue={recipeType} className="select">
+                           <select onChange={handleRecipeType} value={recipeType} className="select">
   <option value="main dish">Main Dish</option>
   <option value="dessert">Dessert</option>
   <option value="drink">Drink</option>
