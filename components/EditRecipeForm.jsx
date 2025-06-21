@@ -318,7 +318,7 @@ const EditRecipeForm = ({id, userID})=>{
 
                         <fieldset className="fieldset w-full">
                             <legend className="fieldset-legend">Recipe Categories</legend>
-                           <select onChange={handleRecipeType} value={recipeType} className="select">
+                           <select onChange={handleRecipeType} value={recipeType} defaultValue={recipeType} className="select">
   <option value="main dish">Main Dish</option>
   <option value="dessert">Dessert</option>
   <option value="drink">Drink</option>
