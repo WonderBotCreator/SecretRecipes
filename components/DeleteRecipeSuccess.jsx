@@ -2,6 +2,7 @@
 
 import { useRouter } from "@node_modules/next/navigation"
 import { useState } from "react"
+import Link from "@node_modules/next/link";
 
 const DeleteRecipeSuccess = ({id})=>{
      const router = useRouter()
