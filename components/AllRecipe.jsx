@@ -130,7 +130,7 @@ const AllRecipe = () => {
                                 }
 
                             </h2>
-                            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+                            <p>{recipe.description}</p>
                             <div className="card-actions justify-end">
                                 <Link href={`/recipe/${recipe.id}`} className="btn btn-soft">Detail</Link>
                             </div>
